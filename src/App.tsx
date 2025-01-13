@@ -14,7 +14,7 @@ function App() {
 	const [loading, setLoading] = useState(false);
 	const messagesEndRef = useRef<HTMLDivElement>(null);
 	// const baseUrl = 'http://localhost:8080/api/message';
-	const baseUrl = '//151.65.1.207:8080/api/message'; // senza http per errori mixed cors
+	const baseUrl = 'http://151.65.1.207:8080/api/message'; // senza http per errori mixed cors
 
 	const scrollToBottom = () => {
 		messagesEndRef.current?.scrollIntoView({behavior: "smooth"});
