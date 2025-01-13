@@ -1,11 +1,18 @@
 import { useState, useEffect, useRef } from 'react';
 import { Terminal } from 'lucide-react';
 
+interface Message {
+	id: string;
+	message: string;
+	ip: string;
+	creationTime: string;
+}
+
 function App() {
-	const [messages, setMessages] = useState([]);
+	const [messages, setMessages] = useState<Message[]>([]);
 	const [newMessage, setNewMessage] = useState('');
 	const [loading, setLoading] = useState(false);
-	const messagesEndRef = useRef(null);
+	const messagesEndRef = useRef<HTMLDivElement>(null);
 
 	const scrollToBottom = () => {
 		messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -24,14 +31,14 @@ function App() {
 	const fetchMessages = async () => {
 		try {
 			const response = await fetch('http://localhost:8080/api/message');
-			const data = await response.json();
+			const data: Message[] = await response.json();
 			setMessages(data);
 		} catch (error) {
 			console.error('Error fetching messages:', error);
 		}
 	};
 
-	const handleSubmit = async (e) => {
+	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		if (!newMessage.trim()) return;
 
@@ -53,7 +60,7 @@ function App() {
 		setLoading(false);
 	};
 
-	const formatDate = (dateString) => {
+	const formatDate = (dateString: string) => {
 		const date = new Date(dateString);
 		return date.toLocaleTimeString();
 	};
