@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from 'react';
-import { Terminal } from 'lucide-react';
+import {useEffect, useRef, useState} from 'react';
+import {Terminal} from 'lucide-react';
 
 interface Message {
 	id: string;
@@ -13,9 +13,11 @@ function App() {
 	const [newMessage, setNewMessage] = useState('');
 	const [loading, setLoading] = useState(false);
 	const messagesEndRef = useRef<HTMLDivElement>(null);
+	// const baseUrl = 'http://localhost:8080/api/message';
+	const baseUrl = 'http://151.65.1.207:8080/api/message';
 
 	const scrollToBottom = () => {
-		messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+		messagesEndRef.current?.scrollIntoView({behavior: "smooth"});
 	};
 
 	useEffect(() => {
@@ -30,7 +32,7 @@ function App() {
 
 	const fetchMessages = async () => {
 		try {
-			const response = await fetch('http://localhost:8080/api/message');
+			const response = await fetch(baseUrl);
 			const data: Message[] = await response.json();
 			setMessages(data);
 		} catch (error) {
@@ -44,12 +46,12 @@ function App() {
 
 		setLoading(true);
 		try {
-			await fetch('http://localhost:8080/api/message', {
+			await fetch(baseUrl, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
 				},
-				body: JSON.stringify({ message: newMessage }),
+				body: JSON.stringify({message: newMessage}),
 			});
 
 			await fetchMessages();
@@ -70,7 +72,7 @@ function App() {
 			<div className="max-w-3xl mx-auto">
 				{/* Header */}
 				<div className="flex items-center gap-2 mb-4 border-b border-green-500 pb-2">
-					<Terminal className="w-6 h-6" />
+					<Terminal className="w-6 h-6"/>
 					<h1 className="text-xl font-bold">TERMINAL_CHAT v1.0</h1>
 				</div>
 
@@ -87,7 +89,7 @@ function App() {
 							</div>
 						</div>
 					))}
-					<div ref={messagesEndRef} />
+					<div ref={messagesEndRef}/>
 				</div>
 
 				{/* Input Form */}
