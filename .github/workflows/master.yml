@@ -10,11 +10,18 @@ jobs:
       - name: 🚚 Get latest code
         uses: actions/checkout@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Or whatever version you're using
+
       - name: Install dependencies
-        run: npm install
+        run: |
+          npm ci  # More reliable than npm install for CI environments
 
       - name: Build
-        run: tsc -b && vite build
+        run: |
+          npm run build  # This should run both tsc and vite build
 
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
