@@ -35,3 +35,4 @@ jobs:
             **/node_modules/**
             README.md
           server-dir: chat/
+          local-dir: dist/
