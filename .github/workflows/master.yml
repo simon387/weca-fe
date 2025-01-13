@@ -38,3 +38,6 @@ jobs:
           local-dir: dist/
           timeout: 60000  # Increase timeout to 60 seconds
           max-retries: 3  # Add retry attempts
+          protocol: ftp
+          port: 21
+          passive: true
