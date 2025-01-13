@@ -36,3 +36,5 @@ jobs:
             README.md
           server-dir: chat/
           local-dir: dist/
+          timeout: 60000  # Increase timeout to 60 seconds
+          max-retries: 3  # Add retry attempts
